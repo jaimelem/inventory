@@ -5,6 +5,14 @@
     @php $url = "update-product"; $button = "Actualizar"; @endphp
 @else @php $url = "create-product"; $button = "Registrar"; @endphp
 @endif
+@if($errors->any())
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    @foreach($errors->all() as $error)
+        {{ $error }}
+    @endforeach
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
 <form action="{{ url($url) }}" method="POST" class="mt-3">
     @csrf
     <div class="mb-3">

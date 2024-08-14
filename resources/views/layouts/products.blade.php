@@ -16,14 +16,6 @@
         </tr>
     </thead>
     <tbody>
-        {{-- <tr>
-            <td>Tiger Nixon</td>
-            <td>System Architect</td>
-            <td>Edinburgh</td>
-            <td>61</td>
-            <td>2011-04-25</td>
-            <td>action buttons</td>
-        </tr> --}}
         @foreach($products as $product)
             <tr>
                 <td>{{ $product->name }}</td>
@@ -56,6 +48,7 @@
         </tr>
     </tfoot>
 </table>
+
 @endsection
 @section('scripts')
 <script>
