@@ -4,28 +4,26 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
 
-Route::get('/', function () {
+Route::get('/login', function () {
     return view('credentials/login');
-});
+})->name('login');
 
 Route::get('/register', function () {
     return view('credentials/register');
 });
 
-Route::get('/products', function () {
-    return view('layouts/products');
-});
-
 Route::controller(AuthController::class)->group(function () {
-    Route::get('/login', 'login');
-    Route::get('/action-register', 'register');
+    Route::post('/action-login', 'login');
+    Route::post('/action-register', 'register');
+    Route::get('/logout', 'close_sesion');
 });
 
 
-Route::controller(ProductController::class)->group(function () {
-    Route::get('/all-products', 'get_all');
+Route::middleware(['auth'])->controller(ProductController::class)->group(function () {
+    Route::get('/products', 'get_all');
     Route::get('/product/{id?}', 'get');
-    Route::post('/product', 'create');
-    Route::put('/product', 'update');
-    Route::delete('/product/{id}', 'delete');
+    Route::get('/see-product/{id}', 'get');
+    Route::post('/create-product', 'create');
+    Route::post('/update-product', 'update');
+    Route::delete('/delete-product/{id}', 'delete');
 });

@@ -1,11 +1,11 @@
-@extends('base')
+@extends('base_layout')
 @section('content')
-
+@section('page-name') Producto @endsection
 @if(isset($product))
     @php $url = "update-product"; $button = "Actualizar"; @endphp
 @else @php $url = "create-product"; $button = "Registrar"; @endphp
 @endif
-<form action="{{ url($url) }}" method="POST">
+<form action="{{ url($url) }}" method="POST" class="mt-3">
     @csrf
     <div class="mb-3">
       <label for="product" class="form-label">Producto</label>
@@ -26,19 +26,33 @@
             <input type="number" step="0.01" class="form-control" name="price" id="price">
         </div>
     </div>
-    <button type="submit" class="btn btn-primary">{{ $button }}</button>
+    <button type="submit" id="action-btn" class="btn btn-primary">{{ $button }}</button>
   </form>
+
   @endsection
   @section('scripts')
     <script>
         @isset($product)
             let product = @json($product);
-            console.log(product);
             $('#product_id').val(product.id);
             $('#product').val(product.name);
             $('#description').val(product.description);
             $('#quantity').val(product.quantity);
             $('#price').val(product.price);
+        @endisset
+
+        @isset($route)
+            let route = @json($route);
+            let uri = route.uri.split('/')[0];
+
+            if(uri === 'see-product'){
+                $('#product_id').attr('disabled', 'disabled');
+                $('#product').attr('disabled', 'disabled');
+                $('#description').attr('disabled', 'disabled');
+                $('#quantity').attr('disabled', 'disabled');
+                $('#price').attr('disabled', 'disabled');
+                $('#action-btn').addClass('d-none');
+            }
         @endisset
     </script>
   @endsection

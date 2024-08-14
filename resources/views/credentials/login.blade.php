@@ -1,4 +1,4 @@
-@extends('base')
+@extends('base_credentials')
 @section('content')
 <section class="bg-light py-3 py-md-5">
     <div class="container">
@@ -22,7 +22,7 @@
                   </a>
                 </div> --}}
               <h2 class="fs-6 fw-normal text-center text-secondary mb-4">Ingresa a tu cuenta</h2>
-              <form action="{{ url('login') }}" method="POST">
+              <form action="{{ url('action-login') }}" method="POST">
                 @csrf
                 <div class="row gy-2 overflow-hidden">
                   <div class="col-12">

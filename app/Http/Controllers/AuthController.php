@@ -47,4 +47,9 @@ class AuthController extends Controller
 
         return redirect('/products');
     }
+
+    function close_sesion(){
+        Auth::logout();
+        return redirect('/login');
+    }
 }

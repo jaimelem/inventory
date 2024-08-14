@@ -12,9 +12,18 @@ class ProductController extends Controller
         if(is_null($id))
             return view('layouts/product');
         else{
+            $route = request()->route();
             $product = Product::select('id', 'user_id', 'name', 'description', 'quantity', 'price')->where('id', $id)->first();
-            return view('layouts/product', ['product' => $product]);
+            return view('layouts/product', ['product' => $product, 'route' => $route]);
         }
+    }
+
+    public function get_all(){
+        $products = Product::select('products.id', 'products.user_id', 'products.name',
+        'products.description', 'products.quantity', 'products.price', 'users.name as user_name')
+        ->join('users', 'users.id', '=', 'products.user_id')
+        ->where('user_id', Auth::id())->get();
+        return view('layouts/products', ['products' => $products]);
     }
 
     public function create(Request $request){
@@ -55,5 +64,11 @@ class ProductController extends Controller
         $product->save();
 
         return redirect('/products');
+    }
+
+    public function delete(string $id){
+        $product = Product::find($id);
+        $product->delete();
+        return response()->json($product);
     }
 }

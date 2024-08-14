@@ -1,4 +1,4 @@
-@extends('base')
+@extends('base_credentials')
 @section('content')
 <section class="bg-light py-3 py-md-5">
     <div class="container">
@@ -55,7 +55,7 @@
                     </div>
                   </div>
                   <div class="col-12">
-                    <p class="m-0 text-secondary text-center">Ya tienes una cuenta? <a href="{{ url('/') }}" class="link-primary text-decoration-none">Iniciar Sesión</a></p>
+                    <p class="m-0 text-secondary text-center">Ya tienes una cuenta? <a href="{{ url('/login') }}" class="link-primary text-decoration-none">Iniciar Sesión</a></p>
                   </div>
                 </div>
               </form>
